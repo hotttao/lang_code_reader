@@ -1,0 +1,52 @@
+# 应用程序默认配置
+
+# GitHub配置
+github:
+  token: ${oc.env:GITHUB_TOKEN,""}
+  api_url: "https://api.github.com"
+  timeout: 30
+  max_retries: 3
+  user_agent: "koala-code-reader/1.0"
+
+# PostgreSQL数据库配置
+pgsql:
+  host: "localhost"
+  port: 5432
+  username: ${oc.env:PGSQL_USER,postgres}
+  password: ${oc.env:PGSQL_PASSWORD,password}
+  database: ${oc.env:PGSQL_DB,koala_code_reader}
+  min_connections: 1
+  max_connections: 10
+  ssl_mode: null
+
+# Redis配置
+redis:
+  host: "localhost"
+  port: 6379
+  password: ${oc.env:REDIS_PASSWORD,null}
+  db: 0
+  timeout: 5
+  pool_size: 10
+  ssl: false
+
+# 模型配置
+model:
+  name: "gpt-4"
+  version: "0.1.0"
+  api_key: ${oc.env:MODEL_API_KEY,null}
+  endpoint: ${oc.env:MODEL_ENDPOINT,null}
+  timeout: 60
+  max_tokens: 4096
+  temperature: 0.7
+  parameters:
+    top_p: 1.0
+    frequency_penalty: 0.0
+    presence_penalty: 0.0
+
+# 全局设置
+debug: ${oc.env:DEBUG,false}
+log_level: ${oc.env:LOG_LEVEL,INFO}
+
+defaults:
+  - _self_
+  - optional env: ${oc.env:ENVIRONMENT,dev}
